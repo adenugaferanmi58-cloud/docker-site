@@ -1,10 +1,717 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Docker Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VELORA — Modern Lifestyle</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fffaf5;
+            color: #17151c;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 250, 245, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #eee5df;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: #6c2bd9;
+        }
+
+        .links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .links a {
+            font-weight: 600;
+            color: #4d4753;
+        }
+
+        .links a:hover {
+            color: #f05a47;
+        }
+
+        /* HERO */
+
+        .hero {
+            max-width: 1200px;
+            margin: auto;
+            padding: 80px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 9px 15px;
+            border-radius: 30px;
+            background: #ffd8d0;
+            color: #b83d2e;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.2rem, 7vw, 6.5rem);
+            line-height: 0.9;
+            letter-spacing: -5px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 span {
+            color: #6c2bd9;
+        }
+
+        .hero p {
+            max-width: 540px;
+            color: #68616d;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 800;
+            transition: 0.3s;
+        }
+
+        .primary {
+            background: #6c2bd9;
+            color: white;
+        }
+
+        .secondary {
+            background: #ff765f;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+        }
+
+        /* HERO ART */
+
+        .hero-art {
+            min-height: 500px;
+            position: relative;
+            border-radius: 35px;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c2bd9,
+                    #8d42e8 35%,
+                    #ff765f 65%,
+                    #ffc857
+                );
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .circle-one {
+            width: 280px;
+            height: 280px;
+            background: #25c6d9;
+            top: 40px;
+            right: -50px;
+        }
+
+        .circle-two {
+            width: 220px;
+            height: 220px;
+            background: #ffcf33;
+            bottom: -50px;
+            left: -40px;
+        }
+
+        .circle-three {
+            width: 150px;
+            height: 150px;
+            background: #ef3f8f;
+            top: 180px;
+            left: 100px;
+        }
+
+        .art-card {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            width: 240px;
+            height: 310px;
+            background: #fffaf5;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.18);
+        }
+
+        .art-card h2 {
+            font-size: 2.5rem;
+            line-height: 0.9;
+            margin-top: 50px;
+        }
+
+        .art-card small {
+            color: #6c2bd9;
+            font-weight: 800;
+        }
+
+        /* INTRO */
+
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+            padding: 90px 25px;
+        }
+
+        .intro h2 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            color: #706974;
+            line-height: 1.8;
+        }
+
+        /* COLLECTION */
+
+        .collection {
+            background: #17151c;
+            color: white;
+            padding: 100px 25px;
+        }
+
+        .collection-inner {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 30px;
+            margin-bottom: 45px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -3px;
+        }
+
+        .section-heading p {
+            color: #aaa4b0;
+            max-width: 400px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .product {
+            min-height: 400px;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-one {
+            background: linear-gradient(145deg, #ff765f, #ffb199);
+        }
+
+        .product-two {
+            background: linear-gradient(145deg, #6c2bd9, #b18aff);
+        }
+
+        .product-three {
+            background: linear-gradient(145deg, #16a6a0, #7de4c9);
+        }
+
+        .product h3 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .product p {
+            opacity: 0.85;
+        }
+
+        /* FEATURES */
+
+        .features {
+            max-width: 1200px;
+            margin: auto;
+            padding: 100px 25px;
+        }
+
+        .features h2 {
+            font-size: 3rem;
+            margin-bottom: 45px;
+            letter-spacing: -2px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            padding: 35px;
+            border-radius: 18px;
+            background: #f2eaff;
+        }
+
+        .feature:nth-child(2) {
+            background: #fff0c7;
+        }
+
+        .feature:nth-child(3) {
+            background: #ffdcd5;
+        }
+
+        .feature-number {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .feature p {
+            color: #665f6b;
+            line-height: 1.7;
+        }
+
+        /* NEWSLETTER */
+
+        .newsletter {
+            margin: 30px 25px 100px;
+            padding: 80px 30px;
+            border-radius: 30px;
+            text-align: center;
+            background: linear-gradient(
+                120deg,
+                #6c2bd9,
+                #ef3f8f,
+                #ff765f
+            );
+            color: white;
+        }
+
+        .newsletter h2 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            margin-bottom: 30px;
+            color: #fff0fa;
+        }
+
+        .newsletter a {
+            display: inline-block;
+            background: white;
+            color: #6c2bd9;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #111016;
+            color: #aaa5b0;
+            padding: 35px 25px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            color: white;
+            font-weight: 900;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .products,
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-heading {
+                flex-direction: column;
+                align-items: start;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .hero-art {
+                min-height: 400px;
+            }
+
+            .products,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<h1>Feranmi's Cloud Engineering Website- Git Branch Practice</h1>    
-<p>My website is running inside a Docker container and managed with Github.</p>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+        <div class="nav">
+
+            <a href="#" class="logo">VELORA</a>
+
+            <ul class="links">
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#story">Story</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div>
+
+            <div class="tag">
+                NEW SEASON · 2026
+            </div>
+
+            <h1>
+                Make your<br>
+                <span>own mood.</span>
+            </h1>
+
+            <p>
+                Velora is a modern lifestyle brand created for people
+                who believe everyday style should be expressive,
+                unexpected and completely their own.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#collection" class="btn primary">
+                    Explore Collection
+                </a>
+
+                <a href="#story" class="btn secondary">
+                    Our Story
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-art">
+
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+            <div class="circle circle-three"></div>
+
+            <div class="art-card">
+
+                <small>VELORA / 026</small>
+
+                <h2>
+                    COLOR<br>
+                    YOUR<br>
+                    WORLD.
+                </h2>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- STORY -->
+
+    <section class="intro" id="story">
+
+        <h2>
+            Style doesn't have to follow rules.
+        </h2>
+
+        <p>
+            We mix unexpected colors, bold ideas and everyday comfort
+            to create pieces that feel different without trying too hard.
+            Velora is about finding your own expression and making it yours.
+        </p>
+
+    </section>
+
+
+    <!-- COLLECTION -->
+
+    <section class="collection" id="collection">
+
+        <div class="collection-inner">
+
+            <div class="section-heading">
+
+                <h2>
+                    The latest.
+                </h2>
+
+                <p>
+                    Discover a collection inspired by color,
+                    movement and modern city life.
+                </p>
+
+            </div>
+
+
+            <div class="products">
+
+                <div class="product product-one">
+
+                    <h3>Sunset</h3>
+
+                    <p>
+                        Warm tones for brighter days.
+                    </p>
+
+                </div>
+
+
+                <div class="product product-two">
+
+                    <h3>After Dark</h3>
+
+                    <p>
+                        Deep colors with a little attitude.
+                    </p>
+
+                </div>
+
+
+                <div class="product product-three">
+
+                    <h3>Fresh Air</h3>
+
+                    <p>
+                        Cool shades inspired by nature.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="features" id="features">
+
+        <h2>
+            Why Velora?
+        </h2>
+
+        <div class="feature-grid">
+
+            <div class="feature">
+
+                <div class="feature-number">01</div>
+
+                <h3>Original Ideas</h3>
+
+                <p>
+                    We look for inspiration everywhere and turn
+                    unexpected ideas into something memorable.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-number">02</div>
+
+                <h3>Bold Colors</h3>
+
+                <p>
+                    Color is part of our identity. Bright, warm,
+                    soft and dramatic — never boring.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-number">03</div>
+
+                <h3>Made For You</h3>
+
+                <p>
+                    Everything is designed to give you room to
+                    create your own look and personality.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NEWSLETTER -->
+
+    <section class="newsletter" id="contact">
+
+        <h2>
+            Stay in the loop.
+        </h2>
+
+        <p>
+            New collections, special drops and stories from Velora.
+        </p>
+
+        <a href="mailto:hello@velora.example">
+            Say Hello
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-logo">
+                VELORA
+            </div>
+
+            <div>
+                © 2026 Velora. All rights reserved.
+            </div>
+
+        </div>
+
+    </footer>
+
 </body>
 </html>
